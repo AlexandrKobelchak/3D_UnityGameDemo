@@ -31,7 +31,7 @@ public class RayShooter : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             { 
-                Debug.Log($"X = {hit.point.x}  Y = {hit.point.y}  Z = {hit.point.z}");
+                //Debug.Log($"X = {hit.point.x}  Y = {hit.point.y}  Z = {hit.point.z}");
                 GameObject hitObject = hit.transform.gameObject;
                 ReactiveTarget target = hitObject.GetComponent<ReactiveTarget>();
               
