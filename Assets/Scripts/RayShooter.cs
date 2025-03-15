@@ -14,8 +14,11 @@ public class RayShooter : MonoBehaviour
     {
         
         _camera = GetComponent<Camera>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //if (!Debug.isDebugBuild)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     // Update is called once per frame
@@ -27,9 +30,19 @@ public class RayShooter : MonoBehaviour
             Ray ray = _camera.ScreenPointToRay(point);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
-            {
+            { 
                 Debug.Log($"X = {hit.point.x}  Y = {hit.point.y}  Z = {hit.point.z}");
-                StartCoroutine(SphereIndicator(hit.point, 2.0F));
+                GameObject hitObject = hit.transform.gameObject;
+                ReactiveTarget target = hitObject.GetComponent<ReactiveTarget>();
+              
+                if (target != null)
+                {
+                    target.ReactToHit(20);
+                }
+                else
+                {
+                    StartCoroutine(SphereIndicator(hit.point, 2.0F));
+                }
             }
         }
     }
